@@ -14,13 +14,13 @@ def sendmail(sender, receiver, subject, body=''):
 
 def main():
     parser = OptionParser(usage='usage: %prog [options] subject')
-    parser.set_defaults(receiver='bgolub+todo@benjamingolub.com')
+    parser.set_defaults(receiver='example+todo@example.com')
     parser.add_option('-p', '--personal', action='store_const', dest='receiver',
-                      const='bgolub+todo@benjamingolub.com')
+                      const='example+todo@example.com')
     parser.add_option('-r', '--receiver', action='store', dest='receiver')
     parser.add_option('-s', '--sender', action='store', dest='sender')
     parser.add_option('-w', '--work', action='store_const', dest='receiver',
-                      const='bgolub+todo@friendfeed.com')
+                      const='example+todo@example.com')
 
     options, args = parser.parse_args()
     if not options.sender:

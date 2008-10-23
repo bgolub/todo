@@ -13,7 +13,7 @@ def sendmail(sender, receiver, subject, body=''):
     s.sendmail(sender, [receiver], msg.as_string())
 
 def main():
-    parser = OptionParser(usage="usage: %prog [options] subject")
+    parser = OptionParser(usage='usage: %prog [options] subject')
     parser.set_defaults(receiver='bgolub+todo@benjamingolub.com')
     parser.add_option('-p', '--personal', action='store_const', dest='receiver',
                       const='bgolub+todo@benjamingolub.com')
@@ -25,7 +25,7 @@ def main():
     options, args = parser.parse_args()
     if not options.sender:
         options.sender = options.receiver.replace('+todo', '')
-    subject = " ".join(args)
+    subject = ' '.join(args)
     if not subject:
         parser.print_help()
     else:

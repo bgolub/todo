@@ -1,0 +1,35 @@
+#!/usr/bin/env python
+
+import smtplib
+from email.mime.text import MIMEText
+from optparse import OptionParser
+
+def sendmail(sender, receiver, subject, body=''):
+    msg = MIMEText(body)
+    msg['Subject'] = subject
+    msg['From'] = sender
+    msg['To'] = receiver
+    s = smtplib.SMTP('aspmx.l.google.com')
+    s.sendmail(sender, [receiver], msg.as_string())
+
+def main():
+    parser = OptionParser(usage="usage: %prog [options] subject")
+    parser.set_defaults(receiver='bgolub+todo@benjamingolub.com')
+    parser.add_option('-p', '--personal', action='store_const', dest='receiver',
+                      const='bgolub+todo@benjamingolub.com')
+    parser.add_option('-r', '--receiver', action='store', dest='receiver')
+    parser.add_option('-s', '--sender', action='store', dest='sender')
+    parser.add_option('-w', '--work', action='store_const', dest='receiver',
+                      const='bgolub+todo@friendfeed.com')
+
+    options, args = parser.parse_args()
+    if not options.sender:
+        options.sender = options.receiver.replace('+todo', '')
+    subject = " ".join(args)
+    if not subject:
+        parser.print_help()
+    else:
+        sendmail(options.sender, options.receiver, subject)
+
+if __name__ == '__main__':
+    main()
